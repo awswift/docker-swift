@@ -5,13 +5,13 @@ properties([
     ])
 ])
 
-node('mini') {
+def doit() {
     stage('git') {
         checkout scm
     }
 
     stage('build') {
-        sh 'docker build .'
+        sh 'docker build --no-cache .'
     }
 
     // stage('tests') {
@@ -24,3 +24,14 @@ node('mini') {
     //     }
     // }
 }
+
+node('mini') {
+    ansiColor('xterm') {
+        timestamps {
+            timeout(30) {
+                doit()
+            }
+        }
+    }
+}
+
