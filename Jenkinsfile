@@ -1,31 +1,55 @@
-pipeline {
-    agent { 
-        label 'mini' 
+// pipeline {
+//     agent { 
+//         label 'mini' 
+//     }
+
+//     triggers {
+//         cron '@daily'
+//     }
+
+//     stages {
+//         stage('git') {
+//             steps {
+//                 checkout scm
+//             }
+//         }
+
+//         stage('build') {
+//             steps {
+//                 sh 'docker build .'
+//             }
+//         }
+
+//         // stage('tests') {
+//         //     sh 'validate somehow...?'
+//         // }
+
+//         // stage('push') {
+//         //     sh 'docker push ...'
+//         // }
+//     }
+// }
+
+properties([
+    pipelineTriggers([
+        cron('@daily')
+    ])
+])
+
+node('mini') {
+    stage('git') {
+        checkout scm
     }
 
-    triggers {
-        cron '@daily'
+    stage('build') {
+        sh 'docker build .'
     }
 
-    stages {
-        stage('git') {
-            steps {
-                checkout scm
-            }
-        }
+    // stage('tests') {
+    //     sh 'validate somehow...?'
+    // }
 
-        stage('build') {
-            steps {
-                sh 'docker build .'
-            }
-        }
-
-        // stage('tests') {
-        //     sh 'validate somehow...?'
-        // }
-
-        // stage('push') {
-        //     sh 'docker push ...'
-        // }
-    }
+    // stage('push') {
+    //     sh 'docker push ...'
+    // }
 }
