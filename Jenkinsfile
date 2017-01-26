@@ -18,7 +18,9 @@ node('mini') {
     //     sh 'validate somehow...?'
     // }
 
-    // stage('push') {
-    //     sh 'docker push ...'
+    // if (env.BRANCH_NAME == 'master') {
+    //     stage('push') {
+    //         sh 'docker push ...'
+    //     }
     // }
 }
