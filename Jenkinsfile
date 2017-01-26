@@ -9,11 +9,15 @@ pipeline {
 
     stages {
         stage('git') {
-            checkout scm
+            steps {
+                checkout scm
+            }
         }
 
         stage('build') {
-            sh 'docker build .'
+            steps {
+                sh 'docker build .'
+            }
         }
 
         // stage('tests') {
