@@ -11,7 +11,13 @@ def doit() {
     }
 
     stage('build') {
-        sh 'docker build --no-cache .'
+        sh """
+            docker build \
+            --no-cache \
+            --build-arg SWIFT_BRANCH=development \
+            --build-arg SWIFT_VERSION=swift-DEVELOPMENT-SNAPSHOT-2017-01-24-a \
+            .
+        """
     }
 
     // stage('tests') {
